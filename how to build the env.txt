@@ -1,0 +1,47 @@
+1. the process refers https://dev.to/shivampawar/setup-webpack-and-babel-for-a-react-js-application-24f5
+    Since the babel has been updated since that article, the config is a little different
+
+-- run it to check what it looks like --
+(1) npm update
+(2) npm start (it opens the web browser and show the react web page)
+
+-- how to build the env from the scretch--
+(1) npm init -y
+     
+(2) npm i -S react react-dom
+    npm i -D babel-core babel-loader babel-preset-env babel-preset-react
+    npm install --save-dev @babel/core
+    npm i -D webpack webpack-cli webpack-dev-server html-webpack-plugin
+    npm i @babel/preset-react
+
+(3) create src and dist folders
+(4) create the content for index.html and index.js
+(5) modify the module option in webpack.config.js to
+ module: {
+      rules: [
+         {
+            test: /\.js?$/,
+            exclude: /node_modules/,
+            use: {
+			  loader: "babel-loader",
+			  options: {
+				presets: ['@babel/preset-env', '@babel/preset-react']
+			  }
+			}
+		  },
+         {
+            test: /\.css$/,
+            use: [ 'style-loader', 'css-loader' ]
+        }
+      ]
+   },
+
+(6) modify the scripts option in package.json
+"scripts": {
+    "start": "webpack serve --mode development --open --hot",
+    "build": "webpack --mode production"
+  },
+
+(7) run
+    npm start
+    to build and start the web page at http://localhost:8080/
